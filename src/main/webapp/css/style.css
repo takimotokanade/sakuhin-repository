@@ -1,0 +1,488 @@
+@charset "UTF-8";
+/* 共通********************************** */
+.takimoto {
+    padding: 30px;
+    background-color: #E6F5E6;
+}
+.taki {
+    padding: 30px;
+    background-color: #FDF5E6;
+}
+h2 {
+    margin-bottom: 50px;
+}
+.login {
+	padding: 30px;
+}
+.loginForm {
+	max-width: 400px;
+    margin: 0 auto 15px auto;
+    padding: 20px 4%;	
+}
+
+/* ナビゲーション********************************** */
+.nvb {
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 17px 25px;
+    border-bottom: 1px solid #e0dfdf;
+}
+.nvb h1 {
+    color: black; /* オレンジ系の色で料理らしさを演出 */
+/*    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);*/
+    font-size: 25px;
+    /* font-weight: bold; */
+    margin: 0;
+    letter-spacing: 2px; /* 文字間を少し広げて読みやすく */
+}
+.navBotton {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.navBotton p {
+    margin: 0;
+}
+
+/* アレルギーチェックボックス配置 */
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3列 */
+    gap: 10px; /* 各アイテムの間隔 */
+  }
+  
+  .checkbox-grid div {
+    display: flex;
+    align-items: center;
+  }
+  
+
+
+
+/* 予約 */
+/* .reservation {
+    max-width: 600px;
+    margin: 0 auto 15px auto;
+    padding: 20px 4%;
+} */
+
+
+/* 検索 */
+/*.kennsaku {*/
+    /* display: flex;
+    margin-bottom: 10px;
+    gap: 5px;
+    text-align: center; */
+    /* align-items: center; */
+    /* margin: 0; */
+
+/*}*/
+
+/* 予約画面の予約内容確認ボックス */
+.kakuninn {
+  /* background-color: #f0f0f0; */
+  background-color: #fff;
+  /* border: 1px solid #dfdfdf; */
+  /* margin: 10px; */
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px; /* 角丸 */
+}
+
+/* 新規登録画面 */
+.registration {
+    /* max-width: 60%; */
+    /* text-align: center; */
+    max-width: 650px;
+    margin: 0 auto 15px auto;
+    padding: 20px 4%;
+    /* border: 1px solid #000; */
+    background-color: #fff;
+    border-radius: 8px; /* 角丸 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.items {
+    margin-bottom: 10px; /* 各アイテム間の余白 */
+    /* justify-content: center; */
+    text-align: center;
+}
+
+.items label {
+    float: left;
+    margin-right: 20px;
+    display: block; /* ラベルをブロック要素にして、次の要素の上に配置 */
+}
+
+.input {
+    width: 100%; /* 入力フィールドを親要素の幅に合わせる（任意） */
+    padding: 0.5rem; /* 入力フィールドの内部余白 */
+    box-sizing: border-box; /* パディングを含めて幅を計算 */
+    border-radius: 5px;
+}
+
+
+
+form a {
+    text-align: center;
+}
+
+form button {
+    text-align: center;
+}
+
+.form-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* ラベルと入力フォームの間の余白 */
+}
+
+/* 入力ドームの ~ : / の左右の余白を広げる */
+.separator {
+    margin: 0 5px;
+}
+
+.bottom {
+    text-align: center;
+}
+
+.bottom1 {
+    text-align: left;
+}
+
+.bottom2 {
+    text-align: right;
+	display: flex; /* フレックスボックスを使用して横並びにする */
+    justify-content: flex-end;
+    gap: 10px; /* ボタン間の間隔を設定 */
+    margin-bottom: 10px; /* 下部に余白を追加 */
+}
+
+.message {
+    color: red;
+    text-align: center;
+}
+
+/* モーダルJS */
+/* モーダルの背景 */
+.modal {
+    display: none; /* 初期状態では非表示 */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* 背景の半透明 */
+}
+
+
+/* 追加 */
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.search-bar input {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.custom-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-button:hover {
+    background-color: #0056b3;
+}
+
+.accordion {
+    position: relative;
+    margin-top: 20px;
+}
+
+.accordion-item {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.accordion-header {
+    background-color: #fff;
+    padding: 25px 10px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.accordion-header:hover {
+    background-color: #e9ecef;
+}
+
+.accordion-content {
+    display: none;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+.arrow {
+    font-size: 14px;
+}
+
+/* テーブルCSS＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊ */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.custom-table th, .custom-table td {
+    border: none; /* 縦線（列の区切り線）を削除 */
+    padding: 10px;
+    /* text: */
+}
+
+.custom-table th {
+    background-color: #f2f2f2; /* ヘッダー行の背景色を設定 */
+    font-weight: bold; /* ヘッダーを太字に */
+}
+
+.custom-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* 偶数行の背景色を変更 */
+}
+
+.button-group {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+}
+
+/* 予約画面 ＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
+
+/* 予約フローバーのデザイン */
+.reservation-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin: 20px 0;
+    padding: 10px 15px;
+}
+
+/* 各ステップのスタイル */
+.reservation-bar .step {
+    flex: 1;
+    text-align: center;
+    font-size: 16px;
+    color: #6c757d;
+    padding: 10px;
+    position: relative;
+}
+
+/* ステップ間の線 */
+.reservation-bar .step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #dee2e6;
+    transform: translateX(50%);
+    z-index: -1;
+}
+
+/* アクティブなステップの強調 */
+.reservation-bar .step.active {
+    background-color: #ff7f00;
+    color: #fff;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-weight: bold;
+}
+
+/* 予約フォームとバーの共通幅設定 */
+/* .registration {
+    max-width: 450px;
+    margin: 0 auto 15px auto;
+    padding: 20px 4%;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+} */
+
+/* フォームタイトルのスタイル */
+.taki h2 {
+    /* text-align: center; */
+    /* display: inline-block; */
+    font-size: 2rem; /* フォントサイズを大きく */
+    font-weight: bold; /* 太字 */
+    color: #ff7f00; /* オレンジ色 */
+    background-color: #fff5e6; /* 柔らかい背景色 */
+    padding: 15px 20px; /* 内側の余白を設定 */
+    border: 2px solid #ff7f00; /* 枠線を追加 */
+    border-radius: 10px; /* 角丸 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 影を追加 */
+    margin-bottom: 30px; /* 下の余白を追加 */
+}
+.takimoto h2 {
+    font-size: 2rem; /* フォントサイズを大きく */
+    font-weight: bold; /* 太字 */
+    color: #008000; /* 緑色に変更 */
+    background-color: #E6F5E6; /* 柔らかい背景色 */
+    padding: 15px 20px; /* 内側の余白を設定 */
+    border: 2px solid #008000; /* 枠線を追加 */
+    border-radius: 10px; /* 角丸 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 影を追加 */
+    margin-bottom: 30px; /* 下の余白を追加 */
+}
+
+/* 確認情報のスタイル */
+.kakuninn p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* 入力フィールドの幅を調整 */
+.mb-3 select, 
+#dynamicFields select {
+    width: 100%; /* フォームの幅に合わせる */
+    padding: 10px; /* 内側の余白を設定 */
+    border: 1px solid #ccc; /* 枠線を設定 */
+    border-radius: 5px; /* 角丸にする */
+    box-sizing: border-box; /* パディングを含めて幅を計算 */
+    font-size: 1rem; /* フォントサイズを統一 */
+    margin-bottom: 10px; /* 各フィールドの間隔 */
+}
+
+/* セイ用の特定スタイル */
+#sei {
+    width: 48%; /* 幅を調整 */
+    display: inline-block;
+    margin-right: 4%; /* 間隔を設定 */
+}
+
+/* メイ用の特定スタイル */
+#mei {
+    width: 48%; /* 幅を調整 */
+    display: inline-block;
+    margin-left: 0; /* 左側の余白をなくす */
+}
+
+.input {
+    width: 100%;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+/* 各人のフィールドセット */
+.person-field {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* 人数選択のスタイル */
+.mb-3 {
+    margin-bottom: 15px;
+}
+
+.mb-3 label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #444; /* テキストの色 */
+}
+
+/* 動的フィールドのスタイル */
+#dynamicFields .col {
+    margin-bottom: 10px;
+}
+
+#dynamicFields label {
+    font-size: 0.9rem;
+    color: #444;
+}
+
+/* 管理画面****************************************/
+.date-time-section {
+    background-color: #f0f0f0; /* 薄いグレー */
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.date-time-section2 {
+    background-color: #E6F5E6; /* 薄いみどり */
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.date-time-section3 {
+    background-color: #FDF5E6; /* 薄いオレンジ */
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.date-time-section4 {
+    background-color: #D6EAF8; /* 薄い青 */
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+p {
+    margin: 0;
+}
+
+.date-time-section p {
+    margin: 0;  /* 上下の余白をなくす */
+}
+
+.date-time-section2 p {
+    margin: 0;  /* 上下の余白をなくす */
+}
+
+.date-time-section3 p {
+    margin: 0;  /* 上下の余白をなくす */
+}
+
+.date-time-section4 p {
+    margin: 0;  /* 上下の余白をなくす */
+}
