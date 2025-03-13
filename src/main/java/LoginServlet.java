@@ -2,7 +2,6 @@
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,47 +15,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import database.DatabaseConnection;
+
 /**
  * Servlet implementation class LoginServlet
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	//定数宣言
-	private static final String DATABASE_NAME = "sakuhin_sample";
-	private static final String PROPATIES = "?characterEncoding=utf-8";
-	private static final String URL = "jdbc:mysql://localhost:3306/" + DATABASE_NAME + PROPATIES;
-	private static final String USER = "root";
-	private static final String PASS = "";	
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		doGet(request, response);
-		
-		//リクエストパラメータ取得
 		request.setCharacterEncoding("UTF-8");
 		String strUserName = request.getParameter("userName");
 		String strPassword = request.getParameter("password");
 		
-		//初期化部分
+		HttpSession session = request.getSession();
 		Connection con = null;
 		PreparedStatement prst = null;
 		String url = "/error.jsp";
 		
 		//入力されたログインIDとパスワードが一致するか確認する処理
 		try {
-			//データベース接続
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection(URL, USER, PASS);
+			con = DatabaseConnection.getConnection();
 			System.out.println("データベース接続");
 			String sql = "SELECT id, password, is_admin, last_name, first_name FROM users WHERE username = ?";
 			prst = con.prepareStatement(sql);
-			//デバッグ
-			System.out.println(prst.toString());
+			System.out.println(prst.toString()); //デバッグ
 			prst.setString(1, strUserName);
 			System.out.println(prst.toString());
 			ResultSet rs = prst.executeQuery();
@@ -69,7 +55,6 @@ public class LoginServlet extends HttpServlet {
 				
 				if (dbPassword.equals(strPassword)) {
 					
-					HttpSession session = request.getSession();
 					session.setAttribute("userId", rs.getInt("id"));
 					session.setAttribute("username", strUserName);
 					session.setAttribute("isAdmin", isAdmin);
@@ -94,7 +79,7 @@ public class LoginServlet extends HttpServlet {
 				url = "/login.jsp";
 			}
 			
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -113,8 +98,7 @@ public class LoginServlet extends HttpServlet {
 		
 		//データベースからイベントテーブルを取得
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection(URL, USER, PASS);
+			con = DatabaseConnection.getConnection();
 			System.out.println("データベース接続");
 			String sql = "SELECT event_name, price, event_content, event_id FROM events ;";
 			prst = con.prepareStatement(sql);
@@ -132,7 +116,7 @@ public class LoginServlet extends HttpServlet {
 			
 			request.setAttribute("LIST", eventList);
 			
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -151,8 +135,7 @@ public class LoginServlet extends HttpServlet {
 		
 		//データベースからイベントテーブル、開催日テーブル、レッスンテーブル（結合したもの）を取得
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection(URL, USER, PASS);
+			con = DatabaseConnection.getConnection();
 			System.out.println("データベース接続");
 			String sql = "SELECT " +
 	                 "e.event_name, e.event_content, d.event_date, t.start_time, t.end_time, t.lesson_time_id, e.max_participants," +
@@ -183,7 +166,7 @@ public class LoginServlet extends HttpServlet {
 			
 			request.setAttribute("LIST2", eventList2);
 			
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -202,12 +185,10 @@ public class LoginServlet extends HttpServlet {
 		
 		// データベースから予約済みレッスンIDを取得
 		try {
-		    Class.forName("com.mysql.cj.jdbc.Driver");
-		    con = DriverManager.getConnection(URL, USER, PASS);
+			con = DatabaseConnection.getConnection();
 		    System.out.println("データベース接続");
 		    
 		    // ユーザーIDをセッションから取得
-		    HttpSession session = request.getSession();
 		    int userId = (int) session.getAttribute("userId");
 		    
 		    String sql = "SELECT lesson_time_id FROM reserve WHERE id = ?";
@@ -223,7 +204,7 @@ public class LoginServlet extends HttpServlet {
 		    // JSPに予約済みレッスンIDを渡す
 		    request.setAttribute("RESERVED_LESSON_IDS", reservedLessonIds);
 		    
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 		    e.printStackTrace();
 		} finally {
 		    try {
@@ -238,7 +219,6 @@ public class LoginServlet extends HttpServlet {
 		    }
 		}
 		
-		HttpSession session = request.getSession();
 		session.removeAttribute("eventName");
 		session.removeAttribute("eventContent");
 		session.removeAttribute("price");

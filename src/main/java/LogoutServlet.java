@@ -29,7 +29,6 @@ public class LogoutServlet extends HttpServlet {
 		
 		String url = "/login.jsp";
 		
-		// 転送
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
 	}
