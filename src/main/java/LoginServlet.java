@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.UsersDAO;
 import database.DatabaseConnection;
+import dto.UsersDTO;
 
 /**
  * Servlet implementation class LoginServlet
@@ -36,64 +38,25 @@ public class LoginServlet extends HttpServlet {
 		PreparedStatement prst = null;
 		String url = "/error.jsp";
 		
-		//入力されたログインIDとパスワードが一致するか確認する処理
-		try {
-			con = DatabaseConnection.getConnection();
-			System.out.println("データベース接続");
-			String sql = "SELECT id, password, is_admin, last_name, first_name FROM users WHERE username = ?";
-			prst = con.prepareStatement(sql);
-			System.out.println(prst.toString()); //デバッグ
-			prst.setString(1, strUserName);
-			System.out.println(prst.toString());
-			ResultSet rs = prst.executeQuery();
+		UsersDAO usersDAO = new UsersDAO();
+		UsersDTO usersDTO = usersDAO.login(strUserName, strPassword);
+		
+		if (usersDTO != null) {
+			session.setAttribute("userId", usersDTO.getId());
+			session.setAttribute("username", usersDTO.getUsername());
+			session.setAttribute("password", usersDTO.getPassword());
+			session.setAttribute("isAdmin", usersDTO.isAdmin());
+			session.setAttribute("lastName", usersDTO.getLastName());
+			session.setAttribute("firstName", usersDTO.getFirstName());
 			
-			if (rs.next()) {
-				String dbPassword = rs.getString("password");
-				boolean isAdmin = rs.getBoolean("is_admin");
-				String lastName = rs.getString("last_name");
-				String fristName = rs.getString("first_name");
-				
-				if (dbPassword.equals(strPassword)) {
-					
-					session.setAttribute("userId", rs.getInt("id"));
-					session.setAttribute("username", strUserName);
-					session.setAttribute("isAdmin", isAdmin);
-					session.setAttribute("lastName", lastName);
-					session.setAttribute("fristName", fristName);
-					
-					if (isAdmin) {
-						url = "/eventListAdmin.jsp";
-					} else {
-						url = "/eventList.jsp";
-					}
-					
-				} else {
-					//パスワードが一致しない場合
-					request.setAttribute("errorMsg", "ユーザID または パスワードに 誤りがあります。");
-					url = "/login.jsp";
-				}
-				
+			if (usersDTO.isAdmin()) {
+				url = "./eventListAdmin.jsp";
 			} else {
-				//ユーザが見つからない場合
-				request.setAttribute("errorMsg", "ユーザID または パスワードに 誤りがあります。");	
-				url = "/login.jsp";
+				url = "./eventList.jsp";
 			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				//prst(SQL実行の準備オブジェクト)を閉じ、リソースを開放
-				if (null != prst) {
-					prst.close();
-				}
-				//データベース接続を閉じ、リソースを開放
-				if (null != con) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		} else {
+			request.setAttribute("errorMsg", "ユーザID または パスワードに誤りがあります。");
+		    url = "/login.jsp";
 		}
 		
 		//データベースからイベントテーブルを取得
