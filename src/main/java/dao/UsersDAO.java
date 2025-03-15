@@ -9,9 +9,7 @@ import database.DatabaseConnection;
 import dto.UsersDTO;
 
 public class UsersDAO {
-	//データベースから
-	////入力されたログインIDとパスワードが一致するか確認する処理
-	
+	//ログインIDとパスワードが一致するか確認する処理
 	public UsersDTO login(String username, String password) {
 		String sql = "SELECT id, password, is_admin, last_name, first_name FROM users WHERE username = ?";
         
@@ -37,7 +35,6 @@ public class UsersDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
         return null; // ログイン失敗
 	}
 }
