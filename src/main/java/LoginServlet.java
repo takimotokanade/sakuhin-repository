@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,8 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.EventsDAO;
 import dao.UsersDAO;
 import database.DatabaseConnection;
+import dto.EventsDTO;
 import dto.UsersDTO;
 
 /**
@@ -38,9 +41,9 @@ public class LoginServlet extends HttpServlet {
 		PreparedStatement prst = null;
 		String url = "/error.jsp";
 		
+		//ログイン処理
 		UsersDAO usersDAO = new UsersDAO();
 		UsersDTO usersDTO = usersDAO.login(strUserName, strPassword);
-		
 		if (usersDTO != null) {
 			session.setAttribute("userId", usersDTO.getId());
 			session.setAttribute("username", usersDTO.getUsername());
@@ -50,51 +53,19 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("firstName", usersDTO.getFirstName());
 			
 			if (usersDTO.isAdmin()) {
-				url = "./eventListAdmin.jsp";
+				url = "/eventListAdmin.jsp";
 			} else {
-				url = "./eventList.jsp";
+				url = "/eventList.jsp";
 			}
 		} else {
 			request.setAttribute("errorMsg", "ユーザID または パスワードに誤りがあります。");
 		    url = "/login.jsp";
 		}
 		
-		//データベースからイベントテーブルを取得
-		try {
-			con = DatabaseConnection.getConnection();
-			System.out.println("データベース接続");
-			String sql = "SELECT event_name, price, event_content, event_id FROM events ;";
-			prst = con.prepareStatement(sql);
-			ResultSet rs = prst.executeQuery();
-			
-			ArrayList<ArrayList<String>> eventList = new ArrayList<ArrayList<String>>();
-			while(rs.next()) {
-				ArrayList<String> event = new ArrayList<String>();
-				event.add(rs.getString("event_name"));
-				event.add(rs.getString("price"));
-				event.add(rs.getString("event_id"));
-				event.add(rs.getString("event_content"));
-				eventList.add(event);
-			}
-			
-			request.setAttribute("LIST", eventList);
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				//prst(SQL実行の準備オブジェクト)を閉じ、リソースを開放
-				if (null != prst) {
-					prst.close();
-				}
-				//データベース接続を閉じ、リソースを開放
-				if (null != con) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		//イベントテーブルを取得
+		EventsDAO eventsDAO = new EventsDAO();
+		List<EventsDTO> eventList = eventsDAO.selectAll();
+		request.setAttribute("LIST", eventList);
 		
 		//データベースからイベントテーブル、開催日テーブル、レッスンテーブル（結合したもの）を取得
 		try {
