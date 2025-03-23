@@ -1,14 +1,16 @@
 package dto;
 
+import java.sql.Date;
+
 public class EventDatesDTO {
 	private int eventDateId;
     private int eventId;
-    private String eventDate;
+    private Date eventDate;
 
 	public EventDatesDTO() {
     }
 
-    public EventDatesDTO(int eventDateId, int eventId, String eventDate) {
+    public EventDatesDTO(int eventDateId, int eventId, Date eventDate) {
         this.eventDateId = eventDateId;
         this.eventId = eventId;
         this.eventDate = eventDate;
@@ -30,11 +32,11 @@ public class EventDatesDTO {
 		this.eventId = eventId;
 	}
 
-	public String getEventDate() {
+	public Date getEventDate() {
 		return eventDate;
 	}
 
-	public void setEventDate(String eventDate) {
+	public void setEventDate(Date eventDate) {
 		this.eventDate = eventDate;
 	}
 
