@@ -1,15 +1,17 @@
 package dto;
 
+import java.sql.Time;
+
 public class LessonTimesDTO {
 	private int lessonTimeId;
     private int eventDateId;
-    private String startTime;
-    private String endTime;
+    private Time startTime;
+    private Time endTime;
 
     public LessonTimesDTO() {
     }
 
-    public LessonTimesDTO(int lessonTimeId, int eventDateId, String startTime, String endTime) {
+    public LessonTimesDTO(int lessonTimeId, int eventDateId, Time startTime, Time endTime) {
         this.lessonTimeId = lessonTimeId;
         this.eventDateId = eventDateId;
         this.startTime = startTime;
@@ -32,19 +34,19 @@ public class LessonTimesDTO {
 		this.eventDateId = eventDateId;
 	}
 
-	public String getStartTime() {
+	public Time getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(String startTime) {
+	public void setStartTime(Time startTime) {
 		this.startTime = startTime;
 	}
 
-	public String getEndTime() {
+	public Time getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(String endTime) {
+	public void setEndTime(Time endTime) {
 		this.endTime = endTime;
 	}
 }
