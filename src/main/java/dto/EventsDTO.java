@@ -6,15 +6,20 @@ public class EventsDTO {
     private String eventContent;
     private int price;
     private int maxParticipants;
+    private int availableSeats;
+    
+    private EventDatesDTO eventDates;
+    private LessonTimesDTO lessonTimes;
 
     public EventsDTO() {
     }
-    public EventsDTO(int eventId, String eventName, String eventContent, int price, int maxParticipants) {
+    public EventsDTO(int eventId, String eventName, String eventContent, int price, int maxParticipants, int availableSeats) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.eventContent = eventContent;
         this.price = price;
         this.maxParticipants = maxParticipants;
+        this.availableSeats = availableSeats;
     }
 
     public int getEventId() {
@@ -56,4 +61,28 @@ public class EventsDTO {
 	public void setMaxParticipants(int maxParticipants) {
 		this.maxParticipants = maxParticipants;
 	}
+	
+    public EventDatesDTO getEventDates() {
+        return eventDates;
+    }
+
+    public void setEventDates(EventDatesDTO eventDates) {
+        this.eventDates = eventDates;
+    }
+
+    public LessonTimesDTO getLessonTimes() {
+        return lessonTimes;
+    }
+
+    public void setLessonTimes(LessonTimesDTO lessonTimes) {
+        this.lessonTimes = lessonTimes;
+    }
+    
+    public int getAvailableSeats() {
+    	return availableSeats;
+    }
+    
+    public void setAvailableSeats(int availableSeats) {
+    	this.availableSeats = availableSeats;
+    }
 }

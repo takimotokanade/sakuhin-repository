@@ -16,10 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.EventDateDAO;
 import dao.EventsDAO;
+import dao.LessonTimesDAO;
 import dao.UsersDAO;
 import database.DatabaseConnection;
+import dto.EventDatesDTO;
 import dto.EventsDTO;
+import dto.LessonTimesDTO;
 import dto.UsersDTO;
 
 /**
@@ -65,7 +69,26 @@ public class LoginServlet extends HttpServlet {
 		//イベントテーブルを取得
 		EventsDAO eventsDAO = new EventsDAO();
 		List<EventsDTO> eventList = eventsDAO.selectAll();
-		request.setAttribute("LIST", eventList);
+		request.setAttribute("EVENTLIST", eventList);
+		
+		//全てのイベント関連のテーブルを取得
+		List<EventsDTO> eventListAll = eventsDAO.selectAllEventDetails();
+		request.setAttribute("EVENTLISTALL", eventListAll);
+		
+		//イベントデータテーブルを取得
+		EventDateDAO eventsDateDAO = new EventDateDAO();
+		List<EventDatesDTO> eventDateList = eventsDateDAO.selectAll();
+		request.setAttribute("EVENTDATELIST", eventDateList);
+		
+		//レッスン時間テーブルを取得
+		LessonTimesDAO lessonTimesDAO = new LessonTimesDAO();
+		List<LessonTimesDTO> lessonTimeList = lessonTimesDAO.selectAll();
+		request.setAttribute("LESSONTIMELIST", lessonTimeList);
+		
+		
+		
+		
+		
 		
 		//データベースからイベントテーブル、開催日テーブル、レッスンテーブル（結合したもの）を取得
 		try {
